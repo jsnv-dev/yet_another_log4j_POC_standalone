@@ -1,0 +1,30 @@
+version: '3'
+services:
+  vulnerable_app:
+    build:
+        context: "./log4shell-vulnerable-app"
+        dockerfile: "./Dockerfile"
+    restart: unless-stopped
+    container_name: log4j_vulnerable_app
+    networks:
+      log4j_net:
+        ipv4_address: '10.10.10.2'
+    ports:
+      - "8080:8080"
+  attacker:
+    build: .
+    container_name: log4j_attacker
+    volumes:
+      - ./:/usr/src/app
+    networks:
+      log4j_net:
+        ipv4_address: '10.10.10.3'
+
+networks:
+  log4j_net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.10.10.0/24
+

@@ -50,28 +50,28 @@ Options:
     -c, --command Command            Command to execute. Default: "touch /dev/shm/log4j_vulnerable"
     -s, --serve_only                 [OPTIONAL] Starts HTTP and LDAP Server, then send JNDI payload manually
     -i, --info_extract Info_key      [OPTIONAL] Extracts information from the target using log4j keywords. Default is none. Possible inputs but not limited to below:
-                                        ${hostName}
-                                        ${sys:user.name}
-                                        ${sys:user.home}
-                                        ${sys:user.dir}
-                                        ${sys:java.home}
-                                        ${sys:java.vendor}
-                                        ${sys:java.version}
-                                        ${sys:java.vendor.url}
-                                        ${sys:java.vm.version}
-                                        ${sys:java.vm.vendor}
-                                        ${sys:java.vm.name}
-                                        ${sys:os.name}
-                                        ${sys:os.arch}
-                                        ${sys:os.version}
-                                        ${env:JAVA_VERSION}
-                                        ${env:AWS_SECRET_ACCESS_KEY}
-                                        ${env:AWS_SESSION_TOKEN}
-                                        ${env:AWS_SHARED_CREDENTIALS_FILE}
-                                        ${env:AWS_WEB_IDENTITY_TOKEN_FILE}
-                                        ${env:AWS_PROFILE}
-                                        ${env:AWS_CONFIG_FILE}
-                                        ${env:AWS_ACCESS_KEY_ID}
+                                        hostName
+                                        sys:user.name
+                                        sys:user.home
+                                        sys:user.dir
+                                        sys:java.home
+                                        sys:java.vendor
+                                        sys:java.version
+                                        sys:java.vendor.url
+                                        sys:java.vm.version
+                                        sys:java.vm.vendor
+                                        sys:java.vm.name
+                                        sys:os.name
+                                        sys:os.arch
+                                        sys:os.version
+                                        env:JAVA_VERSION
+                                        env:AWS_SECRET_ACCESS_KEY
+                                        env:AWS_SESSION_TOKEN
+                                        env:AWS_SHARED_CREDENTIALS_FILE
+                                        env:AWS_WEB_IDENTITY_TOKEN_FILE
+                                        env:AWS_PROFILE
+                                        env:AWS_CONFIG_FILE
+                                        env:AWS_ACCESS_KEY_ID
     -o, --obfuscate                  [OPTIONAL] Obfuscates the JNDI Payload
         --help                       Print options
 

@@ -38,7 +38,7 @@ Getting information from callback(Note: `-c 'touch /dev/shm/vulnerable' is not n
 ![Info](./attachments/info.gif)
 
 ### Options
-```bash
+```
 # ./log4j.rb --help
 Usage: ./log4j.rb -t [Target] -a [Attacker IP] -l [LDAP Port] -h [HTTP Port]
 

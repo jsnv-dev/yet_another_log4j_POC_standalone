@@ -278,28 +278,28 @@ def parse_args
       '-i Info_key',
       '[OPTIONAL] Extracts information from the target using log4j keywords. Default is none.'\
       " Possible inputs but not limited to below:\n"\
-      "\t\t\t\t\t${hostName}\n"\
-      "\t\t\t\t\t${sys:user.name}\n"\
-      "\t\t\t\t\t${sys:user.home}\n"\
-      "\t\t\t\t\t${sys:user.dir}\n"\
-      "\t\t\t\t\t${sys:java.home}\n"\
-      "\t\t\t\t\t${sys:java.vendor}\n"\
-      "\t\t\t\t\t${sys:java.version}\n"\
-      "\t\t\t\t\t${sys:java.vendor.url}\n"\
-      "\t\t\t\t\t${sys:java.vm.version}\n"\
-      "\t\t\t\t\t${sys:java.vm.vendor}\n"\
-      "\t\t\t\t\t${sys:java.vm.name}\n"\
-      "\t\t\t\t\t${sys:os.name}\n"\
-      "\t\t\t\t\t${sys:os.arch}\n"\
-      "\t\t\t\t\t${sys:os.version}\n"\
-      "\t\t\t\t\t${env:JAVA_VERSION}\n"\
-      "\t\t\t\t\t${env:AWS_SECRET_ACCESS_KEY}\n"\
-      "\t\t\t\t\t${env:AWS_SESSION_TOKEN}\n"\
-      "\t\t\t\t\t${env:AWS_SHARED_CREDENTIALS_FILE}\n"\
-      "\t\t\t\t\t${env:AWS_WEB_IDENTITY_TOKEN_FILE}\n"\
-      "\t\t\t\t\t${env:AWS_PROFILE}\n"\
-      "\t\t\t\t\t${env:AWS_CONFIG_FILE}\n"\
-      "\t\t\t\t\t${env:AWS_ACCESS_KEY_ID}"
+      "\t\t\t\t\thostName\n"\
+      "\t\t\t\t\tsys:user.name\n"\
+      "\t\t\t\t\tsys:user.home\n"\
+      "\t\t\t\t\tsys:user.dir\n"\
+      "\t\t\t\t\tsys:java.home\n"\
+      "\t\t\t\t\tsys:java.vendor\n"\
+      "\t\t\t\t\tsys:java.version\n"\
+      "\t\t\t\t\tsys:java.vendor.url\n"\
+      "\t\t\t\t\tsys:java.vm.version\n"\
+      "\t\t\t\t\tsys:java.vm.vendor\n"\
+      "\t\t\t\t\tsys:java.vm.name\n"\
+      "\t\t\t\t\tsys:os.name\n"\
+      "\t\t\t\t\tsys:os.arch\n"\
+      "\t\t\t\t\tsys:os.version\n"\
+      "\t\t\t\t\tenv:JAVA_VERSION\n"\
+      "\t\t\t\t\tenv:AWS_SECRET_ACCESS_KEY\n"\
+      "\t\t\t\t\tenv:AWS_SESSION_TOKEN\n"\
+      "\t\t\t\t\tenv:AWS_SHARED_CREDENTIALS_FILE\n"\
+      "\t\t\t\t\tenv:AWS_WEB_IDENTITY_TOKEN_FILE\n"\
+      "\t\t\t\t\tenv:AWS_PROFILE\n"\
+      "\t\t\t\t\tenv:AWS_CONFIG_FILE\n"\
+      "\t\t\t\t\tenv:AWS_ACCESS_KEY_ID"
     ) do |value|
       args[:info_extract] = value
     end

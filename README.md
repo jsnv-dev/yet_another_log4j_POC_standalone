@@ -49,7 +49,7 @@ Options:
     -h, --http HTTP_PORT             HTTP Port to use. Default: 1010
     -c, --command Command            Command to execute. Default: "touch /dev/shm/log4j_vulnerable"
     -s, --serve_only                 [OPTIONAL] Starts HTTP and LDAP Server, then send JNDI payload manually
-    -i, --info_extract Info_key      [OPTIONAL] Extracts information from the target using log4j keywords. Default is none.Possible inputs but not limited to below:
+    -i, --info_extract Info_key      [OPTIONAL] Extracts information from the target using log4j keywords. Default is none. Possible inputs but not limited to below:
                                         ${hostName}
                                         ${sys:user.name}
                                         ${sys:user.home}

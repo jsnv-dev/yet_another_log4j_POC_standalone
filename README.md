@@ -4,6 +4,8 @@ This is for educational purposes only. This contains docker files to create the 
 ### Building and running the testing environment
 Start the [vulnerable app](https://github.com/christophetd/log4shell-vulnerable-app) and test server
 ```
+git clone --recursive https://github.com/jsnv-dev/yet_another_log4j_POC_standalone
+cd yet_another_log4j_POC_standalone
 docker-compose up
 ```
 ### Exploitation
